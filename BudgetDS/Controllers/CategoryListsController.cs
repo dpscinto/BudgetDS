@@ -11,6 +11,7 @@ using BudgetDS.Models.CodeFirst;
 
 namespace BudgetDS.Controllers
 {
+    [Authorize]
     public class CategoryListsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

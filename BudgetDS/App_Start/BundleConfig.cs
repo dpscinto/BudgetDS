@@ -21,11 +21,20 @@ namespace BudgetDS
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+                      "~/Scripts/pace.min.js",
+                      "~/Scripts/jquery.popupoverlay.min.js",
+                      "~/Scripts/jquery.slimscroll.min.js",
+                      "~/Scripts/jquery.cookie.min.js",
+                      "~/Scripts/endless/endless.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/endless.min.css",
+                      "~/Content/pace.css",
+                      "~/Content/endless-skin.css",
+                      "~/Content/jquery.dataTables_themeroller.css"));
         }
     }
 }

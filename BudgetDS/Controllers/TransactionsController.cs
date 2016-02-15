@@ -11,6 +11,7 @@ using BudgetDS.Models.CodeFirst;
 
 namespace BudgetDS.Controllers
 {
+    [Authorize]
     public class TransactionsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

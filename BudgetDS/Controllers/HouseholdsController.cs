@@ -8,27 +8,22 @@ using System.Web;
 using System.Web.Mvc;
 using BudgetDS.Models;
 using BudgetDS.Models.CodeFirst;
+using Microsoft.AspNet.Identity;
+using System.Configuration;
 
 namespace BudgetDS.Controllers
 {
+    [Authorize]
     public class HouseholdsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Households
+
+        // GET: Households/Details(Index)/5
         public ActionResult Index()
         {
-            return View(db.Households.ToList());
-        }
-
-        // GET: Households/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Household household = db.Households.Find(id);
+            var user = db.Users.Find(User.Identity.GetUserId());
+            Household household = db.Households.Find(user.HouseholdId);
             if (household == null)
             {
                 return HttpNotFound();
@@ -39,6 +34,7 @@ namespace BudgetDS.Controllers
         // GET: Households/Create
         public ActionResult Create()
         {
+            ViewBag.ErrorMessage = TempData["errorMessage"];
             return View();
         }
 
@@ -49,80 +45,85 @@ namespace BudgetDS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name")] Household household)
         {
+            var user = db.Users.Find(User.Identity.GetUserId());
             if (ModelState.IsValid)
             {
-                db.Households.Add(household);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (user.HouseholdId == null)
+                {
+                    db.Households.Add(household);
+                    db.SaveChanges();
+
+                    var hh = db.Households.OrderByDescending(h => h.Id).First();
+                    user.HouseholdId = hh.Id;
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index", new { id = hh.Id });
+                }
+
+                TempData["errorMessage"] = "Invalid Create Attempt";
+                return RedirectToAction("Create", "Households");
             }
 
             return View(household);
         }
 
-        // GET: Households/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Household household = db.Households.Find(id);
-            if (household == null)
-            {
-                return HttpNotFound();
-            }
-            return View(household);
-        }
-
-        // POST: Households/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Households/Join
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Household household)
+        public ActionResult Join(string Code)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(household).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var currUser = User.Identity.GetUserName();
+                var invite = db.Invites.FirstOrDefault(c => c.Code == Code && c.PUser == currUser);
+                if (invite != null)
+                {
+                    var user = db.Users.Find(User.Identity.GetUserId());
+                    user.HouseholdId = invite.HouseholdId;
+                    db.SaveChanges();
+                    return RedirectToAction("Index", new { id = user.HouseholdId });
+                }
+                TempData["errorMessage"] = "Invalid Join Code";
+                return RedirectToAction("Create", "Households");
             }
-            return View(household);
+            return View();
         }
 
-        // GET: Households/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Household household = db.Households.Find(id);
-            if (household == null)
-            {
-                return HttpNotFound();
-            }
-            return View(household);
-        }
 
-        // POST: Households/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        // POST: Households/Leave
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult Leave(int? Id)
         {
-            Household household = db.Households.Find(id);
-            db.Households.Remove(household);
+            var user = db.Users.Find(User.Identity.GetUserId());
+            user.HouseholdId = null;
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return RedirectToAction("Create", "Households");
         }
 
-        protected override void Dispose(bool disposing)
+        [HttpPost]
+        public ActionResult Invite(SendInvite sendinvite)
         {
-            if (disposing)
+            var invite = new Invite();
+            var keycode = SendInvite.GetUniqueKey(6);
+
+            invite.PUser = sendinvite.Email;
+            invite.HouseholdId = sendinvite.HouseholdId;
+            invite.Code = keycode;
+            db.Invites.Add(invite);
+            db.SaveChanges();
+
+            var Emailer = new EmailService();
+            var mail = new IdentityMessage
             {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+                Subject = "You're Invited to Join a Household on Budget Tracker!",
+                Destination = sendinvite.Email,
+                Body = "You've been invited to join a household on Budget Tracker. Here is your unique join code " + invite.Code + ". Click <a href='https://dscinto-budget.azurewebsites.net'>here</a> and enter your code to join the household."
+            };
+            Emailer.SendAsync(mail);
+
+            return RedirectToAction("Index", "Households");
         }
     }
 }

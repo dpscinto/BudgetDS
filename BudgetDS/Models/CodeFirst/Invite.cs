@@ -10,7 +10,7 @@ namespace BudgetDS.Models.CodeFirst
         public int Id { get; set; }
         public int HouseholdId { get; set; }
         public string PUser { get; set; }
-        public int Code { get; set; }
+        public string Code { get; set; }
 
         public virtual Household Household { get; set; }
     }

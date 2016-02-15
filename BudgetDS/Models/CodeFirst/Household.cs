@@ -14,14 +14,15 @@ namespace BudgetDS.Models.CodeFirst
             this.Category = new HashSet<Category>();
             this.BudgetItem = new HashSet<BudgetItem>();
             this.Invite = new HashSet<Invite>();
+            this.ApplicationUser = new HashSet<ApplicationUser>();
         }
         public int Id { get; set; }
-        [Required]
         public string Name { get; set; }
 
         public virtual ICollection<Account> Account { get; set; }
         public virtual ICollection<Category> Category { get; set; }
         public virtual ICollection<BudgetItem> BudgetItem { get; set; }
         public virtual ICollection<Invite> Invite { get; set; }
+        public virtual ICollection<ApplicationUser> ApplicationUser { get; set; }
     }
 }

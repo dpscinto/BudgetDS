@@ -81,3 +81,8 @@ c:\users\dan scinto\documents\visual studio 2015\Projects\BudgetDS\BudgetDS\obj\
 c:\users\dan scinto\documents\visual studio 2015\Projects\BudgetDS\BudgetDS\obj\Debug\BudgetDS.dll
 c:\users\dan scinto\documents\visual studio 2015\Projects\BudgetDS\BudgetDS\obj\Debug\BudgetDS.pdb
 c:\users\dan scinto\documents\visual studio 2015\Projects\BudgetDS\BudgetDS\bin\Owin.Security.Providers.dll
+c:\users\dan scinto\documents\visual studio 2015\Projects\BudgetDS\BudgetDS\bin\SendGrid.dll
+c:\users\dan scinto\documents\visual studio 2015\Projects\BudgetDS\BudgetDS\bin\SendGrid.SmtpApi.dll
+c:\users\dan scinto\documents\visual studio 2015\Projects\BudgetDS\BudgetDS\bin\SendGridMail.dll
+c:\users\dan scinto\documents\visual studio 2015\Projects\BudgetDS\BudgetDS\bin\System.Net.Http.Formatting.dll
+c:\users\dan scinto\documents\visual studio 2015\Projects\BudgetDS\BudgetDS\bin\System.Net.Http.Formatting.xml

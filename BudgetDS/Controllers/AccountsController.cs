@@ -8,9 +8,11 @@ using System.Web;
 using System.Web.Mvc;
 using BudgetDS.Models;
 using BudgetDS.Models.CodeFirst;
+using Microsoft.AspNet.Identity;
 
 namespace BudgetDS.Controllers
 {
+    [Authorize]
     public class AccountsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -40,7 +42,6 @@ namespace BudgetDS.Controllers
         // GET: Accounts/Create
         public ActionResult Create()
         {
-            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name");
             return View();
         }
 
@@ -51,14 +52,17 @@ namespace BudgetDS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Balance,HouseholdId")] Account account)
         {
+            var user = db.Users.Find(User.Identity.GetUserId());           
+
             if (ModelState.IsValid)
             {
+                account.HouseholdId = (int)user.HouseholdId;
                 db.Accounts.Add(account);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                return RedirectToAction("Index", "Home");
             }
 
-            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", account.HouseholdId);
             return View(account);
         }
 
@@ -74,7 +78,7 @@ namespace BudgetDS.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", account.HouseholdId);
+
             return View(account);
         }
 
