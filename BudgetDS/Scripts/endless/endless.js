@@ -360,3 +360,7 @@ $(window).scroll(function(){
 		$('#scroll-to-top').removeAttr('style');
 	 }
 });
+
+
+//DatePicker
+

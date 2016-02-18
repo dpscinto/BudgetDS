@@ -10,7 +10,7 @@ using BudgetDS.Models;
 
 namespace BudgetDS.Controllers
 {
-    [Authorize]
+    [AuthorizeHouseholdRequired]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;

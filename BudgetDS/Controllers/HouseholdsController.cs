@@ -10,15 +10,17 @@ using BudgetDS.Models;
 using BudgetDS.Models.CodeFirst;
 using Microsoft.AspNet.Identity;
 using System.Configuration;
+using System.Threading.Tasks;
+using BudgetDS.Helpers;
 
 namespace BudgetDS.Controllers
 {
-    [Authorize]
+    
     public class HouseholdsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-
+        [AuthorizeHouseholdRequired]
         // GET: Households/Details(Index)/5
         public ActionResult Index()
         {
@@ -31,6 +33,7 @@ namespace BudgetDS.Controllers
             return View(household);
         }
 
+        [Authorize]
         // GET: Households/Create
         public ActionResult Create()
         {
@@ -42,10 +45,12 @@ namespace BudgetDS.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] Household household)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Name")] Household household)
         {
             var user = db.Users.Find(User.Identity.GetUserId());
+            
             if (ModelState.IsValid)
             {
                 if (user.HouseholdId == null)
@@ -56,6 +61,21 @@ namespace BudgetDS.Controllers
                     var hh = db.Households.OrderByDescending(h => h.Id).First();
                     user.HouseholdId = hh.Id;
                     db.SaveChanges();
+
+                    var cl = db.CategoryLists.ToList();
+                    var cat = new List<Category>();
+
+                    foreach(var category in cl)
+                        {
+                        var newcat = new Category() { Name = category.Name, HouseholdId = household.Id };
+                        cat.Add(newcat);
+                        }
+
+                    db.Categories.AddRange(cat);
+                    db.SaveChanges();
+
+                    var userid = User.Identity.GetUserId();
+                    await ControllerContext.HttpContext.RefreshAuthentication(user);
 
                     return RedirectToAction("Index", new { id = hh.Id });
                 }
@@ -69,8 +89,9 @@ namespace BudgetDS.Controllers
 
         // POST: Households/Join
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Join(string Code)
+        public async Task<ActionResult> Join(string Code)
         {
             if (ModelState.IsValid)
             {
@@ -81,6 +102,10 @@ namespace BudgetDS.Controllers
                     var user = db.Users.Find(User.Identity.GetUserId());
                     user.HouseholdId = invite.HouseholdId;
                     db.SaveChanges();
+
+                    var userid = User.Identity.GetUserId();
+                    await ControllerContext.HttpContext.RefreshAuthentication(user);
+
                     return RedirectToAction("Index", new { id = user.HouseholdId });
                 }
                 TempData["errorMessage"] = "Invalid Join Code";
@@ -92,17 +117,22 @@ namespace BudgetDS.Controllers
 
         // POST: Households/Leave
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public ActionResult Leave(int? Id)
+        [AuthorizeHouseholdRequired]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Leave(int? Id)
         {
             var user = db.Users.Find(User.Identity.GetUserId());
             user.HouseholdId = null;
             db.SaveChanges();
 
+            var userid = User.Identity.GetUserId();
+            await ControllerContext.HttpContext.RefreshAuthentication(user);
+
             return RedirectToAction("Create", "Households");
         }
 
         [HttpPost]
+        [AuthorizeHouseholdRequired]
         public ActionResult Invite(SendInvite sendinvite)
         {
             var invite = new Invite();

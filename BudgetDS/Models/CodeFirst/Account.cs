@@ -10,7 +10,7 @@ namespace BudgetDS.Models.CodeFirst
     {
         public Account()
         {
-            this.Transaction = new HashSet<Transaction>();
+            this.Transactions = new HashSet<Transaction>();
         }
         public int Id { get; set; }
         [Required]
@@ -20,6 +20,6 @@ namespace BudgetDS.Models.CodeFirst
 
         public virtual Household Household { get; set; }
 
-        public virtual ICollection<Transaction> Transaction { get; set; }
+        public virtual ICollection<Transaction> Transactions { get; set; }
     }
 }

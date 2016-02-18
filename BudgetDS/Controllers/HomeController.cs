@@ -9,7 +9,7 @@ using BudgetDS.Helpers;
 
 namespace BudgetDS.Controllers
 {
-    [Authorize]
+    [AuthorizeHouseholdRequired]
     [RequireHttps]
     public class HomeController : Controller
     {

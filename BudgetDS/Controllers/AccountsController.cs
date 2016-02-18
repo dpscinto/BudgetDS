@@ -9,10 +9,11 @@ using System.Web.Mvc;
 using BudgetDS.Models;
 using BudgetDS.Models.CodeFirst;
 using Microsoft.AspNet.Identity;
+using BudgetDS.Helpers;
 
 namespace BudgetDS.Controllers
 {
-    [Authorize]
+    [AuthorizeHouseholdRequired]
     public class AccountsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -20,7 +21,8 @@ namespace BudgetDS.Controllers
         // GET: Accounts
         public ActionResult Index()
         {
-            var accounts = db.Accounts.Include(a => a.Household);
+            var user = Convert.ToInt32(User.Identity.GetHouseholdId());
+            var accounts = db.Accounts.Where(a => a.HouseholdId == user);
             return View(accounts.ToList());
         }
 
@@ -60,7 +62,7 @@ namespace BudgetDS.Controllers
                 db.Accounts.Add(account);
                 db.SaveChanges();
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Accounts");
             }
 
             return View(account);
@@ -95,7 +97,7 @@ namespace BudgetDS.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", account.HouseholdId);
+
             return View(account);
         }
 

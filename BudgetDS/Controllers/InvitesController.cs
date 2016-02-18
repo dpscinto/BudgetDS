@@ -11,7 +11,7 @@ using BudgetDS.Models.CodeFirst;
 
 namespace BudgetDS.Controllers
 {
-    [Authorize]
+    [AuthorizeHouseholdRequired]
     public class InvitesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

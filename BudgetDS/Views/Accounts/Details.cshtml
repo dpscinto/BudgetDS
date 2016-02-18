@@ -1,42 +1,63 @@
 ﻿@model BudgetDS.Models.CodeFirst.Account
 
-@{
-    ViewBag.Title = "Details";
-}
+<h2>Account Transactions</h2>
 
-<h2>Details</h2>
-
-<div>
-    <h4>Account</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Household.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Household.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Balance)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Balance)
-        </dd>
-
-    </dl>
+<div class="add-trans">
+    @Html.ActionLink("+ Add Transaction", "Create", "Transactions", new { AccountId = Model.Id}, new { @class = "btn btn-success" })
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<br />
+<div class="panel panel-default table-responsive">
+    <div class="panel-heading">
+        All Transactions
+        <div class="pull-right"><strong>Current Balance: $@Html.DisplayFor(b => b.Balance)</strong></div>
+    </div>
+    <div class="padding-md clearfix">
+        <table class="table table-striped" id="dataTable">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Category</th>
+                    <th>Type</th>
+                    <th>Reconciled?</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Transactions) {
+                <tr>
+                    <td>@item.Date.DateTime.ToShortDateString()</td>
+                    <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                    <td>$ @Html.DisplayFor(modelItem => item.Amount)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Category.Name)</td>
+                    <td>@if (item.Type == true)
+                    {
+                        <label>Income</label>
+                    }
+                    else
+                    {
+                        <label>Expense</label>
+                    }
+                    </td>
+                    <td>@if (item.Reconcile == true)
+                    {
+                        <label>x</label>
+                    }
+                    else
+                    {
+                        <label></label>
+                    }</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Transactions", new { id = item.Id }, null) |
+                        @Html.ActionLink("Delete", "Delete", "Transactions", new { id = item.Id }, null)
+                    </td>
+                </tr>
+                <tr>                   
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

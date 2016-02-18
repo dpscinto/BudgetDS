@@ -9,7 +9,5 @@ namespace BudgetDS.Models.CodeFirst
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
-        public virtual Household Household { get; set; }
     }
 }

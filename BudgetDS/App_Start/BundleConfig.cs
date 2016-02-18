@@ -26,12 +26,14 @@ namespace BudgetDS
                       "~/Scripts/jquery.popupoverlay.min.js",
                       "~/Scripts/jquery.slimscroll.min.js",
                       "~/Scripts/jquery.cookie.min.js",
+                      "~/Scripts/bootstrap-datepicker.min.js",
                       "~/Scripts/endless/endless.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/endless.min.css",
+                      "~/Content/datepicker.css",
                       "~/Content/pace.css",
                       "~/Content/endless-skin.css",
                       "~/Content/jquery.dataTables_themeroller.css"));

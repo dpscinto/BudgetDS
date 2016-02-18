@@ -13,7 +13,7 @@ using BudgetDS.Models.CodeFirst;
 
 namespace BudgetDS.Controllers
 {
-    [Authorize]
+    [AuthorizeHouseholdRequired]
     public class AccountController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

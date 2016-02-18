@@ -232,6 +232,7 @@
     <Compile Include="Helper\Helper.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AuthorizeAttribute.cs" />
     <Compile Include="Models\CodeFirst\Account.cs" />
     <Compile Include="Models\CodeFirst\BudgetItem.cs" />
     <Compile Include="Models\CodeFirst\Category.cs" />
@@ -296,6 +297,8 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="form_element.html" />
+    <Content Include="form_wizard.html" />
     <Content Include="Global.asax" />
     <Content Include="image\gallery1.jpg" />
     <Content Include="image\gallery10.jpg" />

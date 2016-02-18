@@ -1,6 +1,8 @@
 namespace BudgetDS.Migrations
 {
+    using Models.CodeFirst;
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -26,6 +28,39 @@ namespace BudgetDS.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            if (!context.CategoryLists.Any())
+            {
+                context.CategoryLists.AddRange(
+                    new List<CategoryList> {
+                new CategoryList { Name = "Automobile" },
+                new CategoryList { Name = "Bank Charges" },
+                new CategoryList { Name = "Charity" },
+                new CategoryList { Name = "Childcare" },
+                new CategoryList { Name = "Clothing" },
+                new CategoryList { Name = "Credit Card Fees" },
+                new CategoryList { Name = "Education" },
+                new CategoryList { Name = "Events" },
+                new CategoryList { Name = "Expense Reimbursements" },
+                new CategoryList { Name = "Food" },
+                new CategoryList { Name = "Gifts" },
+                new CategoryList { Name = "Healthcare" },
+                new CategoryList { Name = "Household" },
+                new CategoryList { Name = "Insurance" },
+                new CategoryList { Name = "Investment" },
+                new CategoryList { Name = "Job Expenses" },
+                new CategoryList { Name = "Leisure" },
+                new CategoryList { Name = "Loans" },
+                new CategoryList { Name = "Miscellaneous" },
+                new CategoryList { Name = "Paycheck" },
+                new CategoryList { Name = "Pet Care" },
+                new CategoryList { Name = "Savings" },
+                new CategoryList { Name = "Taxes" },
+                new CategoryList { Name = "Uncategorized" },
+                new CategoryList { Name = "Utilities" },
+                new CategoryList { Name = "Vacation" }
+                    });
+            }
         }
     }
 }

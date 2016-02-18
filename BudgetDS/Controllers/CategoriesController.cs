@@ -11,7 +11,7 @@ using BudgetDS.Models.CodeFirst;
 
 namespace BudgetDS.Controllers
 {
-    [Authorize]
+    [AuthorizeHouseholdRequired]
     public class CategoriesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -19,7 +19,7 @@ namespace BudgetDS.Controllers
         // GET: Categories
         public ActionResult Index()
         {
-            var categories = db.Categories.Include(c => c.CategoryList).Include(c => c.Household);
+            var categories = db.Categories.Include(c => c.Household);
             return View(categories.ToList());
         }
 
@@ -60,7 +60,7 @@ namespace BudgetDS.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CategoryListId = new SelectList(db.CategoryLists, "Id", "Name", category.CategoryListId);
+            ViewBag.CategoryListId = new SelectList(db.CategoryLists, "Id", "Name"); //, category.CategoryListId
             ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", category.HouseholdId);
             return View(category);
         }
@@ -77,7 +77,7 @@ namespace BudgetDS.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CategoryListId = new SelectList(db.CategoryLists, "Id", "Name", category.CategoryListId);
+            ViewBag.CategoryListId = new SelectList(db.CategoryLists, "Id", "Name"); //category.CategoryListId
             ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", category.HouseholdId);
             return View(category);
         }
@@ -95,7 +95,7 @@ namespace BudgetDS.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryListId = new SelectList(db.CategoryLists, "Id", "Name", category.CategoryListId);
+            ViewBag.CategoryListId = new SelectList(db.CategoryLists, "Id", "Name");
             ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", category.HouseholdId);
             return View(category);
         }
