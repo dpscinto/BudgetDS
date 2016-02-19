@@ -19,11 +19,11 @@ namespace BudgetDS.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Transactions
-        public ActionResult Index()
+        public PartialViewResult _TransIndex(int? id)
         {
             var user = Convert.ToInt32(User.Identity.GetHouseholdId());
             var transactions = db.Transactions.Where(t => t.Account.HouseholdId == user && t.AccountId == t.Account.Id);
-            return View(transactions.ToList());
+            return PartialView(transactions.ToList());
         }
 
         // GET: Transactions/Details/5
@@ -82,6 +82,17 @@ namespace BudgetDS.Controllers
             var Hhid = Convert.ToInt32(User.Identity.GetHouseholdId());
             ViewBag.CategoryId = new SelectList(db.Categories.Where(c => c.HouseholdId == Hhid), "Id", "Name", transaction.CategoryId);
             return View(transaction);
+        }
+
+        // GET: Transactions/Create(Partial)
+        public PartialViewResult _AddTrans()
+        {
+            
+
+            var Household = db.Households.Find(Convert.ToInt32(User.Identity.GetHouseholdId()));
+            ViewBag.AccountId = new SelectList(Household.Account, "Id", "Name");
+            ViewBag.CategoryId = new SelectList(Household.Category, "Id", "Name");
+            return PartialView();
         }
 
         // GET: Transactions/Edit/5

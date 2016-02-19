@@ -52,6 +52,13 @@
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control input-sm bounceIn animation-delay4" })
                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         </div>
+                        @*<div class="form-group">
+                            <label class="label-checkbox">
+                                <input type="checkbox" name="RememberMe">
+                                <span class="custom-checkbox"></span>
+                                Remember me
+                            </label>
+                        </div>*@
                         @*<div class="checkbox">
                             @Html.CheckBoxFor(m => m.RememberMe)
                             @Html.LabelFor(m => m.RememberMe)

@@ -1,5 +1,10 @@
 
-$(function	()	{
+$(function () {
+
+    //DataTables
+    $('.ed').click(function () {
+        $('#recent-trans').load('/Transactions/_TransIndex/' + $(this).data('id'));
+    });
 
 	// Cookie validation
 	if(jQuery.type($.cookie('skin_color')) != 'undefined')	{

@@ -9,6 +9,8 @@
 
     <!-- Bootstrap core CSS -->
     <link href="~/Content/font-awesome.min.css" rel="stylesheet">
+    <!-- DataTables-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css" />
 
     @using Microsoft.AspNet.Identity
 
@@ -50,7 +52,7 @@
                         <li>
                             <a href="~/Households/Index">
                                 <span class="menu-icon">
-                                    <i class="fa fa-clock-o fa-lg"></i>
+                                    <i class="fa fa-home fa-lg"></i>
                                 </span>
                                 <span class="text">
                                     Household
@@ -61,7 +63,7 @@
                         <li>
                             <a href="~/Accounts/Index">
                                 <span class="menu-icon">
-                                    <i class="fa fa-picture-o fa-lg"></i>
+                                    <i class="fa fa-credit-card fa-lg"></i>
                                 </span>
                                 <span class="text">
                                     Accounts
@@ -72,7 +74,7 @@
                         <li>
                             <a href="">
                                 <span class="menu-icon">
-                                    <i class="fa fa-envelope fa-lg"></i>
+                                    <i class="fa fa-usd fa-lg"></i>
                                 </span>
                                 <span class="text">
                                     Budget
@@ -95,6 +97,8 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <!--DataTables-->
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
     @RenderSection("scripts", required: false)
 
 

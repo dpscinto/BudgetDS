@@ -1,0 +1,28 @@
+﻿@model IEnumerable<BudgetDS.Models.CodeFirst.Account>
+
+<div class="panel panel-default table-responsive">
+    <div class="panel-heading">
+        Accounts
+    </div>
+    <div class="padding-md clearfix">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Account</th>
+                    <th>Balance</th>
+                </tr>
+                </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr> 
+                        <td>@Html.ActionLink(item.Name, "Details", "Accounts", new { id = item.Id }, null)</td>
+                        <td><span>$ </span>@Html.DisplayFor(modelItem => item.Balance)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

@@ -2,39 +2,44 @@
 
 <div class="container">
     <div class="row">
-        <h2>Your Accounts</h2>
-        <div class="add-acc pull-right">
-            @Html.ActionLink("+ Add Account", "Create", "Accounts", null,new { @class = "btn btn-success"})
+        <h2>
+            Accounts
+            @Html.ActionLink("+ Add Account", "Create", "Accounts", null, new { @class = "btn btn-success" })
+        </h2>
     </div>
-</div>
-    <div class="row">
-        <div class="col-md-4">
-            <strong>@Html.DisplayNameFor(model => model.Name)</strong>
+    </div>
+<hr />
+    <div class="panel panel-default table-responsive">
+        <div class="padding-md clearfix">
+            <table class="table table-striped" id="dataTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Balance</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.ActionLink(item.Name, "Details", "Accounts", new { id = item.Id }, null)</td>
+                            <td><span>$ </span>@Html.DisplayFor(modelItem => item.Balance)</td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
-        <div class="col-md-4">
-            <strong>@Html.DisplayNameFor(model => model.Balance)</strong>
-        </div>
-        <div class="col-md-4">
-            <strong>Options</strong>
-        </div>
-        <hr />
-        </div>
-        @foreach (var item in Model)
-            {
-            <div class="row">
-                <div class="col-md-4">
-                    @Html.DisplayFor(modelItem => item.Name)
-                </div>
-                <div class="col-md-4">
-                    <span>$ </span>@Html.DisplayFor(modelItem => item.Balance)
-                </div>
-                <div class="col-md-4">
-                    @Html.ActionLink("View Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Delete Account", "Delete", new { id = item.Id })
-                </div>
-            </div>
-            <hr />
-        }
+    </div>
 
-    </div>
+@section scripts{
+    <script>
+        $('#dataTable').DataTable({
+            "order": [0, 'desc']
+        });
+    </script>
+}

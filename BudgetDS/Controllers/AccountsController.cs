@@ -26,6 +26,14 @@ namespace BudgetDS.Controllers
             return View(accounts.ToList());
         }
 
+        // GET: Accounts(Partial)
+        public PartialViewResult _AccountBal(int? id)
+        {
+            var user = Convert.ToInt32(User.Identity.GetHouseholdId());
+            var accounts = db.Accounts.Where(a => a.HouseholdId == user);
+            return PartialView(accounts.ToList());
+        }
+
         // GET: Accounts/Details/5
         public ActionResult Details(int? id)
         {
