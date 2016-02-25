@@ -14,7 +14,6 @@ namespace BudgetDS.Models.CodeFirst
         [Required]
         public string Description { get; set; }
         public decimal Amount { get; set; }
-        [Required]
         public int Frequency { get; set; }
         [Required]
         public bool Type { get; set; }

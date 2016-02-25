@@ -1,88 +1,62 @@
-﻿@{
-    Layout = "";
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
 }
 
-@using BudgetDS.Models
-@model LoginViewModel
+<!-- About Section -->
+<section id="download" class="content-section text-center">
+    <div class="download-section">
+        <div class="container">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>About Budget Tracker</h2>
+            </div>
+            <div class="col-md-4">
+                <img width="200" height="200" src="" />
+                <br />
+                <p>I used HTML5, CSS3, and JavaScript to structure and style the front-end of the Car Finder App with help from a Bootstrap template.</p>
+            </div>
+            <div class="col-md-4">
+                <img width="200" height="200" src="">
+                <br />
+                <p>Through the use of SQL Server stored procedures, I created a <strong>consumable WebAPI</strong> that accesses NHTSA's database to display car details, images, and recalls.</p>
+            </div>
+            <div class="col-md-4">
+                <img width="180" height="200" src="">
+                <br />
+                <p>The implementation of AngularJS creates a fully-responsive site, which displays information from the database in a eye-catching way.</p>
+            </div>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Login</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-
-    <!-- Bootstrap core CSS -->
-    <link href="~/Content/font-awesome.min.css" rel="stylesheet">
-
-</head>
-<body>
-    <div class="login-wrapper">
-        <div class="text-center">
-            <h2 class="fadeInUp animation-delay8" style="font-weight:bold">
-                <span class="text-success">Budget</span> <span style="color:#ccc; text-shadow:0 1px #fff">Tracker</span>
-            </h2>
+            <div class="col-lg-8 col-lg-offset-2">
+                <p>You can check out my code on GitHub.</p>
+                <a target="_blank" href="https://github.com/dpscinto/BudgetDS" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">GitHub</span></a>
+            </div>
         </div>
-        <div class="login-widget animation-delay1">
-            <div class="panel panel-default">
-                <div class="panel-heading clearfix">
-                    <div class="pull-left">
-                        <i class="fa fa-lock fa-lg"></i> Login
-                    </div>
-                    <div class="pull-right">
-                        <span style="font-size:11px;">Don't have any account?</span>
-                        @Html.ActionLink("Sign Up", "Register", new { @class = "btn btn-default btn-xs login-link" })
-                    </div>
-                </div>
-                <div class="panel-body">
-                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-login" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.Email)
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control input-sm bounceIn animation-delay4" })
-                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.Password)
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control input-sm bounceIn animation-delay4" })
-                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                        </div>
-                        @*<div class="form-group">
-                            <label class="label-checkbox">
-                                <input type="checkbox" name="RememberMe">
-                                <span class="custom-checkbox"></span>
-                                Remember me
-                            </label>
-                        </div>*@
-                        @*<div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
-                        </div>*@
-                        <div class="seperator"></div>
-                        <div class="form-group">
-                            Forgot your password?<br />
-                            Click @Html.ActionLink("here", "ForgotPassword") to reset your password
-                        </div>
-
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-success btn-sm bounceIn animation-delay5 pull-right" value="Log In" />
-                        </div>
-                    }
-                        <section id="socialLoginForm">
-                            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-                        </section>
-                </div><!-- /panel -->
-            </div><!-- /login-widget -->
-        </div><!-- /login-wrapper -->
     </div>
+</section>
 
-</body>
-</html>
+<!-- Contact Section -->
+<section id="contact" class="container content-section text-center">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <h2>Contact Dan Scinto</h2>
+            <p>Feel free to email me to provide some feedback, suggestions, employment, or to just say hello!</p>
+            <p>
+                <a target="_blank" href="mailto:dpscinto@gmail.com">dpscinto@gmail.com</a>
+            </p>
+            <ul class="list-inline banner-social-buttons">
+                <li>
+                    <a target="_blank" href="https://twitter.com/dpscinto" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                </li>
+                <li>
+                    <a target="_blank" href="https://www.facebook.com/dpscinto" class="btn btn-default btn-lg"><i class="fa fa-facebook fa-fw"></i> <span class="network-name">Facebook</span></a>
+                </li>
+                <li>
+                    <a target="_blank" href="https://www.linkedin.com/in/danielscinto" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">LinkedIn</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")

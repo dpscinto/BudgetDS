@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Budget Tracker</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Budget Tracker</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <!-- Bootstrap Core CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="~/Content/grayscale.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="~/fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    @using BudgetDS.Models
+    @model LoginViewModel
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+    <!-- Navigation -->
+    <div id="top-nav" class="skin-6 fixed">
+        <div class="brand">
+            <span>Budget Tracker</span>
+        </div><!-- /brand -->
+        <ul class="nav-notification clearfix">
+            <li>@Html.Partial("_LoginPartial")</li>
+        </ul>
+    </div><!-- /top-nav-->
+    <!-- Intro Header -->
+    <header class="intro">
+                <div class="login-wrapper">
+                    <br />
+                    <div class="text-center">
+                        <h2 class="fadeInUp animation-delay8" style="font-weight:bold">
+                            <span>Budget</span> <span style="color:#ccc; text-shadow:0 1px #fff">Tracker</span>
+                        </h2>
+                    </div>
+                    <div class="login-widget animation-delay1">
+                        <div class="panel panel-default">
+                            <div class="panel-heading clearfix">
+                                <div class="pull-left">
+                                    <i class="fa fa-lock fa-lg"></i> Login
+                                </div>
+                                <div class="pull-right">
+                                    <span style="font-size:11px;">Don't have any account?</span>
+                                    @Html.ActionLink("Sign Up", "Register", new { @class = "btn btn-default btn-xs login-link" })
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-login" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Email)
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control input-sm bounceIn animation-delay4" })
+                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Password)
+                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control input-sm bounceIn animation-delay4" })
+                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                    @*<div class="form-group">
+                                            <label class="label-checkbox">
+                                                <input type="checkbox" name="RememberMe">
+                                                <span class="custom-checkbox"></span>
+                                                Remember me
+                                            </label>
+                                        </div>*@
+                                    @*<div class="checkbox">
+                                            @Html.CheckBoxFor(m => m.RememberMe)
+                                            @Html.LabelFor(m => m.RememberMe)
+                                        </div>*@
+                                    <div class="seperator"></div>
+                                    <div class="form-group">
+                                        Forgot your password?<br />
+                                        Click @Html.ActionLink("here", "ForgotPassword") to reset your password
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-success btn-sm bounceIn animation-delay5 pull-right" value="Log In" />
+                                    </div>
+                                }
+                                <section id="socialLoginForm">
+                                    @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                                </section>
+                            </div><!-- /panel -->
+                        </div><!-- /login-widget -->
+                    </div>
+                </div>
+    </header>
+    <div>
+        @RenderBody()
+    </div>
+
+    <footer>
+        <div class="container text-center">
+            <p>Created by Dan Scinto, 2016</p>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/grayscale.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

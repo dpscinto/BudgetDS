@@ -276,6 +276,7 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\fullcalendar.css" />
     <Content Include="Content\fullcalendar.print.css" />
+    <Content Include="Content\grayscale.css" />
     <Content Include="Content\gritter\images\gritter-light.png" />
     <Content Include="Content\gritter\images\gritter-long.png" />
     <Content Include="Content\gritter\images\gritter.png" />
@@ -295,6 +296,7 @@
     <Content Include="Content\slider.css" />
     <Content Include="Content\wysiwyg-color.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\font-awesome.min.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="form_element.html" />
@@ -315,6 +317,7 @@
     <Content Include="image\gallery7.jpg" />
     <Content Include="image\gallery8.jpg" />
     <Content Include="image\gallery9.jpg" />
+    <Content Include="image\office.jpg" />
     <Content Include="image\responsive.png" />
     <Content Include="image\screenshot.jpg" />
     <Content Include="image\screenshot2.jpg" />
@@ -324,6 +327,7 @@
     <Content Include="image\user4.jpg" />
     <Content Include="image\user5.jpg" />
     <Content Include="index.html" />
+    <Content Include="index2.html" />
     <Content Include="landing.html" />
     <Content Include="login.html" />
     <Content Include="profile.html" />
@@ -375,6 +379,7 @@
     <Content Include="Content\utility.less" />
     <Content Include="Content\variables.less" />
     <Content Include="Content\widget.less" />
+    <Content Include="Scripts\grayscale.js" />
     <Content Include="table.html" />
     <Content Include="ui_element.html" />
     <Content Include="widget.html" />
@@ -492,6 +497,7 @@
     <Content Include="Views\Shared\_TransIndex.cshtml" />
     <Content Include="Views\Shared\_AccountBal.cshtml" />
     <Content Include="Views\Shared\_AddTrans.cshtml" />
+    <Content Include="Views\Shared\_LayoutPage2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

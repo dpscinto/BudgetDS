@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using BudgetDS.Models;
 using BudgetDS.Models.CodeFirst;
+using Microsoft.AspNet.Identity;
+using BudgetDS.Helpers;
 
 namespace BudgetDS.Controllers
 {
@@ -41,8 +43,8 @@ namespace BudgetDS.Controllers
         // GET: BudgetItems/Create
         public ActionResult Create()
         {
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
-            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name");
+            var Hhid = Convert.ToInt32(User.Identity.GetHouseholdId());
+            ViewBag.CategoryId = new SelectList(db.Categories.Where(c => c.HouseholdId == Hhid), "Id", "Name");
             return View();
         }
 
@@ -51,17 +53,19 @@ namespace BudgetDS.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CategoryId,HouseholdId,Description,Amount,Frequency,Type")] BudgetItem budgetItem)
+        public ActionResult Create([Bind(Include = "Id,CategoryId,Description,Amount,Type")] BudgetItem budgetItem)
         {
+            var user = db.Users.Find(User.Identity.GetUserId());
+
             if (ModelState.IsValid)
             {
+                budgetItem.HouseholdId = (int)user.HouseholdId;
                 db.BudgetItems.Add(budgetItem);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "BudgetItems");
             }
 
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", budgetItem.CategoryId);
-            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", budgetItem.HouseholdId);
             return View(budgetItem);
         }
 

@@ -87,7 +87,6 @@ $(function	()	{
 		{label: "In-Store Sales", value: 3091},
 		{label: "Mail-Order Sales", value: 2781}
 	  ],
-	  colors: ['#f3ce85','#65CEA7' ,'#FC8675']
 	});
 	
 	var lineChart = Morris.Line({
