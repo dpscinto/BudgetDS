@@ -1,4 +1,5 @@
-﻿<h2>Dashboard</h2>
+﻿
+<h2>Dashboard</h2>
 <hr />
 
 <div class="row">
@@ -7,43 +8,25 @@
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Household Members
+                        Monthly Budget
                     </div>
                     <div class="panel-body">
-                        <div class="col-md-4 col-sm-6">
-                            <div class="panel panel-default panel-stat1 bg-success">
-                                <div class="panel-body">
-                                    <div class="value">12</div>
-                                    <div class="title">
-                                        <span class="m-left-xs">Bookings</span>
-                                    </div>
-                                </div>
-                            </div><!-- /panel -->
-                        </div><!-- /.col -->
+                        <div id="donutChart" style="height: 200px;"></div>
                     </div>
                 </div><!-- /panel -->
             </div><!-- /.col -->
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Household Members
+                        Actual Monthly Spending
                     </div>
                     <div class="panel-body">
-                        <div class="col-md-4 col-sm-6">
-                            <div class="panel panel-default panel-stat1 bg-success">
-                                <div class="panel-body">
-                                    <div class="value">12</div>
-                                    <div class="title">
-                                        <span class="m-left-xs">Bookings</span>
-                                    </div>
-                                </div>
-                            </div><!-- /panel -->
-                        </div><!-- /.col -->
+                        <div id="donutChart2" style="height: 200px;"></div>
                     </div>
                 </div><!-- /panel -->
             </div><!-- /.col -->
             <div class="col-md-4">
-                @Html.Action("_AccountBal", "Accounts")
+                    @Html.Action("_AccountBal", "Accounts")
             </div>
         </div>
         <div class="row">
@@ -58,6 +41,9 @@
 </div>
 
 @section scripts{
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script src="~/Scripts/morris.js"></script>
     <script type="text/javascript">
         //$('buttonid').click(function()
         //$('#addTrans').load("/Transactions/_AddTrans/" + $(this).data('id'))
@@ -65,5 +51,24 @@
             "order": [0, 'desc'],
             "lengthMenu": [[3, 6, 9, -1], [3, 6, 9, "All"]]
         });
+
+        $.post('@Url.Action("GetChart","Home")').then(function (response) {
+            new Morris.Donut({
+                element: 'donutChart',
+                data: response,
+                resize: true,
+                formatter: function (y, data) { return '$' + y }
+            });
+        });
+
+        $.post('@Url.Action("GetChart2","Home")').then(function (response) {
+            new Morris.Donut({
+                element: 'donutChart2',
+                data: response,
+                resize: true,
+                formatter: function (y, data) { return '$' + y }
+            });
+        });
     </script>
+
 }

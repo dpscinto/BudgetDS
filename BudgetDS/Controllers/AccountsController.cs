@@ -70,6 +70,23 @@ namespace BudgetDS.Controllers
                 db.Accounts.Add(account);
                 db.SaveChanges();
 
+                var hhid = Convert.ToInt32(User.Identity.GetHouseholdId());
+                var house = db.Households.Find(hhid);
+                var cat = house.Category.FirstOrDefault(c => c.Name == "Miscellaneous");
+
+                Transaction initialTransaction = new Transaction
+                {
+                    Date = DateTime.Now,
+                    Description = "Initial Balance",
+                    Amount = account.Balance,
+                    Category = cat,
+                    Type = true,
+                    Reconcile = true
+                };
+
+                account.Transactions.Add(initialTransaction);
+                db.SaveChanges();
+
                 return RedirectToAction("Index", "Accounts");
             }
 

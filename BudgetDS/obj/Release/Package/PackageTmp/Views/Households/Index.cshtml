@@ -1,7 +1,7 @@
 ﻿@model BudgetDS.Models.CodeFirst.Household
 
         <h2>@Html.DisplayFor(model => model.Name)</h2>
-        <span>Welcome Back!</span>
+        <span>Welcome Home!</span>
 <hr />
 <div class="col-md-12">
     <div class="panel panel-default">
@@ -12,9 +12,9 @@
             @foreach (var user in Model.ApplicationUser)
             {
                 <div class="col-md-4 col-sm-6">
-                    <div class="panel panel-default panel-stat1 bg-success">
+                    <div class="panel panel-default panel-stat1 bg-danger">
                         <div class="panel-body">
-                            <i class="fa fa-user fa-3x"></i>
+                            <br />
                             <div class="title">
                                 <span class="m-bottom-xs">@Html.DisplayFor(u => user.FirstName) @Html.DisplayFor(u => user.LastName)</span>
                             </div>
@@ -38,7 +38,7 @@
                 <br />
                 <strong>Email</strong>
                 <input type="text" name="Email" class="form-control" />
-                <input type="submit" value="Invite" class="btn btn-default" />
+                <input type="submit" value="Invite" class="btn btn-default btn-success" />
             </form>
         </div>
     </div><!-- /panel -->
@@ -51,7 +51,7 @@
         </div>
         <div class="panel-body">
             Leave your current household:
-            <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#myModal">Leave</button>
+            <button type="button" class="btn btn-default btn-warning" data-toggle="modal" data-target="#myModal">Leave</button>
         </div>
     <br />
     </div><!-- /panel -->
@@ -70,7 +70,7 @@
                 <form method="Post" action="@Url.Action("Leave","Households")">
                     @Html.AntiForgeryToken()
                     Are you sure you want to leave the household?
-                    <input type="submit" value="Confirm" class="btn btn-default pull-right" />
+                    <input type="submit" value="Confirm" class="btn btn-default btn-danger pull-right" />
                 </form>
                 <br />
             </div>

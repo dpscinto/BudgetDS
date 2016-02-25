@@ -302,6 +302,9 @@
     <Content Include="form_element.html" />
     <Content Include="form_wizard.html" />
     <Content Include="Global.asax" />
+    <Content Include="image\asp.jpg" />
+    <Content Include="image\clogo.png" />
+    <Content Include="image\favicon-money.ico" />
     <Content Include="image\gallery1.jpg" />
     <Content Include="image\gallery10.jpg" />
     <Content Include="image\gallery11.jpg" />
@@ -317,6 +320,7 @@
     <Content Include="image\gallery7.jpg" />
     <Content Include="image\gallery8.jpg" />
     <Content Include="image\gallery9.jpg" />
+    <Content Include="image\html.png" />
     <Content Include="image\office.jpg" />
     <Content Include="image\responsive.png" />
     <Content Include="image\screenshot.jpg" />
