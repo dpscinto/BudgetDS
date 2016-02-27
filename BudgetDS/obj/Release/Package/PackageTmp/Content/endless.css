@@ -874,6 +874,9 @@ aside .main-menu .alert {
     left: 194px;
     right: -194px;
   }
+  #wrapper.sidebar-display footer2 {
+      left: 0px;
+  }
 }
 @media (min-width: 768px) {
   #wrapper.sidebar-hide aside {

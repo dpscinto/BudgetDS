@@ -1,79 +1,125 @@
 ﻿@model BudgetDS.Models.RegisterViewModel
 
 @{
-    Layout = "";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
 }
 
-<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Registration</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
-
-        <!-- Bootstrap core CSS -->
-        <link href="~/Content/font-awesome.min.css" rel="stylesheet">
-
-</head>
 <body>
 
-<div class="login-wrapper">
-    <div class="text-center">
-        <h2 class="fadeInUp animation-delay10" style="font-weight:bold">
-            <span class="text-success">Budget</span> <span style="color:#ccc; text-shadow:0 1px #fff">Tracker</span>
-        </h2>
-    </div>
-    <div class="login-widget animation-delay1">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <i class="fa fa-plus-circle fa-lg"></i> Sign up
-            </div>
-            <div class="panel-body">
-                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-login" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.FirstName)
+    <div class="login-wrapper">
+        <br />
+        <div class="text-center">
+            <h2 class="fadeInUp animation-delay8" style="font-weight:bold">
+                <span>Budget</span> <span style="color:#ccc; text-shadow:0 1px #fff">Tracker</span>
+            </h2>
+        </div>
+        <div class="login-widget animation-delay1">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-plus-circle fa-lg"></i> Sign up
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-login" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.FirstName)
                             @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control input-sm bounceIn animation-delay2" })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.LastName)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.LastName)
                             @Html.TextBoxFor(m => m.LastName, new { @class = "form-control input-sm bounceIn animation-delay3" })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Email)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email)
                             @Html.TextBoxFor(m => m.Email, new { @class = "form-control input-sm bounceIn animation-delay4" })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Password)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password)
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control input-sm bounceIn animation-delay5" })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.ConfirmPassword)
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ConfirmPassword)
                             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control input-sm bounceIn animation-delay6" })
-                    </div>
-                    <div class="seperator"></div>
-                            <div class="form-group">
-                                <div class="controls">
-                                    Already have an account? @Html.ActionLink("Log In", "Login", new { @class = "primary-font login-link" })
-                                </div>
-                            </div><!-- /form-group -->
-                    @Html.ValidationSummary("", new { @class = "text-danger col-sm-offset-1" })
-                    <div class="form-group">
+                        </div>
+                        <div class="seperator"></div>
+                        <div class="form-group">
+                            <div class="controls">
+                                Already have an account? @Html.ActionLink("Log In", "Login", new { @class = "primary-font login-link" })
+                            </div>
+                        </div><!-- /form-group -->
+                        @Html.ValidationSummary("", new { @class = "text-danger col-sm-offset-1" })
+                        <div class="form-group">
                             <input type="submit" class="btn btn-success btn-sm bounceIn animation-delay7 pull-right" value="Sign Up" />
-                    </div>
-                }
+                        </div>
+                    }
                 </div>
             </div><!-- /panel -->
         </div><!-- /login-widget -->
     </div><!-- /login-wrapper -->
 
+
+    <!-- About Section -->
+    <section id="download" class="content-section text-center">
+        <div class="download-section">
+            <div class="container">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2>About Budget Tracker</h2>
+                </div>
+                <div class="col-md-4">
+                    <img width="200" height="200" src="~/image/html.png" />
+                    <br />
+                    <p>I used HTML5, CSS3, and JavaScript to structure and style the front-end of my blog with help from a Bootstrap template.</p>
+                </div>
+                <div class="col-md-4">
+                    <img width="200" height="200" src="~/image/asp.jpg">
+                    <br />
+                    <p>An ASP.NET MVC project is the framework used to build, test, and publish the personal financial portal.</p>
+                </div>
+                <div class="col-md-4">
+                    <img width="180" height="200" src="~/image/clogo.png">
+                    <br />
+                    <p>C# is the object-oriented programming language used to structure and design this project.</p>
+                </div>
+
+                <div class="col-lg-8 col-lg-offset-2">
+                    <p>You can check out my code on GitHub.</p>
+                    <a href="https://github.com/dpscinto/BudgetDS" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">GitHub</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Contact Dan Scinto</h2>
+                <p>Feel free to email me to provide some feedback, suggestions, employment, or to just say hello!</p>
+                <p>
+                    <a target="_blank" href="mailto:dpscinto@gmail.com">dpscinto@gmail.com</a>
+                </p>
+                <ul class="list-inline banner-social-buttons">
+                    <li>
+                        <a target="_blank" href="https://twitter.com/dpscinto" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/dpscinto" class="btn btn-default btn-lg"><i class="fa fa-facebook fa-fw"></i> <span class="network-name">Facebook</span></a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/danielscinto" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">LinkedIn</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+    </section>
+
     </body>
     </html>
+
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
