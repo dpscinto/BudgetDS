@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BudgetDS.Models;
 using BudgetDS.Models.CodeFirst;
+using BudgetDS.Helpers;
 
 namespace BudgetDS.Controllers
 {
@@ -80,10 +81,20 @@ namespace BudgetDS.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var user = await UserManager.FindByNameAsync(model.Email); //db.Users.Find(User.Identity.GetUserId());
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Index", "Home");
+
+                    if (user.HouseholdId == null)
+                    {
+                        return RedirectToAction("Create", "Households");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

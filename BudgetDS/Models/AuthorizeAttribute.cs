@@ -29,7 +29,7 @@ namespace BudgetDS.Models
             }
             else
             {
-                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "Create" }));
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Households", action = "Create" }));
             }
         }
     }
