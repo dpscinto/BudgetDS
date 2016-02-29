@@ -2695,7 +2695,6 @@ footer hr {
 }
 .panel-stat1 {
   text-align: center;
-  cursor: pointer;
   overflow: hidden;
 }
 .panel-stat1:hover .value {
